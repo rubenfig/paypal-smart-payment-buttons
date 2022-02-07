@@ -45,9 +45,11 @@ function useXProps<T>() : T {
 }
 
 function QRCard({
-    svgString
+    svgString,
+    qrcRedesignExperiment
 } : {|
-    svgString : string
+    svgString : string,
+    qrcRedesignExperiment : string
 |}) : mixed {
 
     const { state, errorText, setState, close, onCancel: cancel } = useXProps();
@@ -100,6 +102,9 @@ function QRCard({
         <div id="front-view" className="card">
             <p id="fee-disclaimer">
                 No fees no matter how you pay
+            </p>
+            <p>
+                {qrcRedesignExperiment}
             </p>
             <div id="instructions">
                 <InstructionIcon stylingClass="instruction-icon" />

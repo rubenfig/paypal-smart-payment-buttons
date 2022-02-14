@@ -392,7 +392,7 @@ export const cardStyle : string = `
         border-bottom-right-radius: 16px;
     }
     .escape-path.${ VQRC_EXPERIMENT.B } {
-        background-color: rgba(0, 0, 0, 0.1);
+        background: #e5e5e5;
         color: #2F3033;
     }
     .escape-path__link {

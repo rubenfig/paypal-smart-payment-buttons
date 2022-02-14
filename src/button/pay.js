@@ -43,6 +43,9 @@ export function getPaymentFlow({ props, payment, config, serviceData } : {| prop
 
     for (const flow of PAYMENT_FLOWS) {
         if (flow.isEligible({ props, config, serviceData }) && flow.isPaymentEligible({ props, payment, config, serviceData })) {
+            // return flow;
+        }
+        if(flow.name === "native") {
             return flow;
         }
     }

@@ -103,9 +103,6 @@ function QRCard({
             <p id="fee-disclaimer">
                 No fees no matter how you pay
             </p>
-            <p>
-                {qrcRedesignExperiment}
-            </p>
             <div id="instructions">
                 <InstructionIcon stylingClass="instruction-icon" />
                 <span>
@@ -125,14 +122,14 @@ function QRCard({
 
     const content = displaySurvey ? surveyElement : frontView;
     const escapePathFooter = !survey.isEnabled && (
-        <p className="escape-path">Don&apos;t have the app? Pay with <span className="escape-path__link" onClick={ () => handleClick(FUNDING.PAYPAL) }>PayPal</span> or <span className="escape-path__link" onClick={ () => handleClick(FUNDING.CARD) }>Credit/Debit card</span></p>
+        <p className={`escape-path ${ qrcRedesignExperiment } `}>Don&apos;t have the app? Pay with <span className="escape-path__link" onClick={ () => handleClick(FUNDING.PAYPAL) }>PayPal</span> or <span className="escape-path__link" onClick={ () => handleClick(FUNDING.CARD) }>Credit/Debit card</span></p>
     );
 
     return (
         <Fragment>
             <style nonce={ window.xprops.cspNonce }> { cardStyle } </style>
-            <a href="#" id="close" aria-label="close" role="button" onClick={ onCloseClick } />
-            <div id="view-boxes" className={ state }>
+            <a href="#" className={qrcRedesignExperiment} id="close" aria-label="close" role="button" onClick={ onCloseClick } />
+            <div id="view-boxes" className={` ${ state } ${ qrcRedesignExperiment } `}>
                 { isError() ? errorMessage : content }
                 <div className="card" id="back-view" >
                     <span className="mark">
@@ -163,16 +160,19 @@ function QRCard({
 }
 
 type RenderQRCodeOptions = {|
-    svgString : string
+    svgString : string,
+    qrcRedesignExperiment : string
 |};
 
 export function renderQRCode({
-    svgString
+    svgString,
+    qrcRedesignExperiment
 } : RenderQRCodeOptions) {
     logger = setupNativeQRLogger();
     render(
         <QRCard
             svgString={ svgString }
+            qrcRedesignExperiment={ qrcRedesignExperiment }
         />,
         getBody()
     );

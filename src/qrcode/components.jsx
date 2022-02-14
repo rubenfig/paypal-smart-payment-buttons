@@ -5,7 +5,7 @@ import { preact } from 'jsx-pragmatic';
 import { h } from 'preact';
 import { VenmoLogo, LOGO_COLOR } from '@paypal/sdk-logos/src';
 
-import { VENMO_BLUE, QRCODE_STATE } from '../constants';
+import { VENMO_BLUE, QRCODE_STATE, VQRC_EXPERIMENT } from '../constants';
 
 export function ErrorMessage({
     message,
@@ -144,6 +144,18 @@ export const cardStyle : string = `
         height: 100%;
         width: 100%;
     }
+    #view-boxes.${VQRC_EXPERIMENT.B} #front-view {
+        border: none;
+    }
+    #view-boxes.${ VQRC_EXPERIMENT.B } {
+        background-color: white;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    #view-boxes.${ VQRC_EXPERIMENT.B } .auth-message,
+    #view-boxes.${ VQRC_EXPERIMENT.B } .success-message {
+        color: #2F3033;
+    }
     #view-boxes.${ QRCODE_STATE.SCANNED } #front-view,
     #view-boxes.${ QRCODE_STATE.AUTHORIZED } #front-view {
         transform: rotateY(180deg);
@@ -273,6 +285,9 @@ export const cardStyle : string = `
     #close:after {
         transform: rotate(-45deg);
     }
+    #close.${ VQRC_EXPERIMENT.B }:before, #close.${ VQRC_EXPERIMENT.B }:after {
+        background-color: #6B6E76;
+    }
     #survey {
         background: #FFFFFF;
         height: 542px;
@@ -375,6 +390,10 @@ export const cardStyle : string = `
         margin: 0;
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
+    }
+    .escape-path.${ VQRC_EXPERIMENT.B } {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #2F3033;
     }
     .escape-path__link {
         font-weight: 600;

@@ -103,9 +103,6 @@ function QRCard({
             <p id="fee-disclaimer">
                 No fees no matter how you pay
             </p>
-            <p>
-                {qrcRedesignExperiment}
-            </p>
             <div id="instructions">
                 <InstructionIcon stylingClass="instruction-icon" />
                 <span>

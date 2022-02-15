@@ -161,10 +161,10 @@ export function isNativeEligible({ props, config, serviceData } : IsEligibleOpti
         return true;
     }
 
-    if (!cookies) {
+    if (!cookies && fundingSource === FUNDING.PAYPAL) {
         return false;
     }
-    
+
     if (!supportsPopups()) {
         return false;
     }

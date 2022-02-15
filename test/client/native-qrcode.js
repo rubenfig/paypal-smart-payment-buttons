@@ -18,14 +18,14 @@ const fundingEligibility = {
 
 describe('native qrcode cases', () => {
 
-    it.skip('should render a button with createOrder, click the button, and render checkout via qrcode path', async () => {
+    it('should render a button with createOrder, click the button, and render checkout via qrcode path', async () => {
         return await wrapPromise(async ({ expect, avoid }) => {
             window.xprops.platform = PLATFORM.MOBILE;
             delete window.xprops.onClick;
 
             const sessionToken = uniqueID();
             const orderID = uniqueID();
-            const payerID = 'AAABBBCCC';
+            const payerID = uniqueID();
 
             const gqlMock = getGraphQLApiMock({
                 extraHandler: expect('firebaseGQLCall', ({ data }) => {
@@ -88,13 +88,14 @@ describe('native qrcode cases', () => {
                 }
             }));
 
+            createButtonHTML({ fundingEligibility });
+
             await mockSetupButton({
                 fundingEligibility,
                 eligibility: {
                     cardFields: false,
                     native:     true
-                },
-                cookies: 'login_email=s@paypal.com'
+                }
             });
 
             await clickButton(FUNDING.VENMO);
@@ -367,8 +368,7 @@ describe('native qrcode cases', () => {
                     eligibility: {
                         cardFields: false,
                         native:     true
-                    },
-                    cookies: 'login_email=s@paypal.com'
+                    }
                 });
     
                 await clickButton(FUNDING.VENMO);
@@ -466,8 +466,7 @@ describe('native qrcode cases', () => {
                     eligibility: {
                         cardFields: false,
                         native:     true
-                    },
-                    cookies: 's@paypal.com'
+                    }
                 });
     
                 await clickButton(FUNDING.VENMO);

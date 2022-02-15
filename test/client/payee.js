@@ -1491,7 +1491,7 @@ describe('payee cases', () => {
         });
     });
 
-    it('should render a button, click the button, and render checkout with multiple explicit email and non-email merchantIDs and multiple correct payees, and succeed', async () => {
+    it.only('should render a button, click the button, and render checkout with multiple explicit email and non-email merchantIDs and multiple correct payees, and succeed', async () => {
         return await wrapPromise(async ({ expect }) => {
 
             const orderID = generateOrderID();
@@ -1596,7 +1596,8 @@ describe('payee cases', () => {
                 fundingEligibility:            DEFAULT_FUNDING_ELIGIBILITY,
                 personalization:               {},
                 buyerCountry:                  COUNTRY.US,
-                isCardFieldsExperimentEnabled: false
+                isCardFieldsExperimentEnabled: false,
+                intent:                        INTENT.AUTHORIZE
             });
 
             await clickButton(FUNDING.PAYPAL);

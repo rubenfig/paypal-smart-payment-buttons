@@ -479,6 +479,7 @@ export const cardStyle : string = `
         display: grid;
         grid-template-columns: 1fr 3fr;
         grid-gap: 25px;
+        align-items: center;
     }
     .detailed-instructions .instruction:not(:first) {
         margin-top: 34px;
@@ -489,12 +490,18 @@ export const cardStyle : string = `
     }
     .detailed-instructions .instruction__description {
         margin: 0;
-        margin-top: 6px;
+        margin-top: 6px;    
+        max-width: 174px;
+        line-height: 20px;
+        font-size: 16px;
     }  
     .detailed-instructions .instructions-container {
         display: flex;
         flex-direction: column;
         row-gap: 34px;
+        height: 291px;
+        align-items: center;
+        justify-content: center;
     }
     .detailed-instructions .qr-code-container {
         display: flex;

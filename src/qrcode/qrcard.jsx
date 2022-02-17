@@ -1,4 +1,4 @@
-    /* @flow */
+/* @flow */
 /** @jsx h */
 
 import { h, render, Fragment } from 'preact';
@@ -6,7 +6,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { FUNDING, FPTI_KEY } from '@paypal/sdk-constants/src';
 
 import { getBody } from '../lib';
-import { QRCODE_STATE, FPTI_CUSTOM_KEY, FPTI_TRANSITION, FPTI_STATE, FPTI_CONTEXT_TYPE, VQRC_EXPERIMENT } from '../constants';
+import { QRCODE_STATE, FPTI_CUSTOM_KEY, FPTI_TRANSITION, FPTI_STATE, FPTI_CONTEXT_TYPE, VQRC_EXPERIMENT, VQRC_VARIANT } from '../constants';
 import { openPopup } from '../ui';
 import { CHECKOUT_POPUP_DIMENSIONS } from '../payment-flows/checkout';
 
@@ -20,8 +20,7 @@ import {
     cardStyle,
     debugging_nextStateMap,
     PaypalIcon,
-    CompleteIcon,
-    MobileIcon
+    DetailedInstructions
 } from './components';
 import { setupNativeQRLogger } from './lib/logger';
 import { Survey, useSurvey } from './survey';
@@ -47,6 +46,13 @@ function useXProps<T>() : T {
     };
 }
 
+function getVariant(experiment : string) : string {
+    if (experiment === VQRC_EXPERIMENT.B || experiment === VQRC_EXPERIMENT.A) {
+        return VQRC_VARIANT.LIGHT;
+    }
+    return VQRC_VARIANT.DARK;
+}
+
 function QRCard({
     svgString,
     qrcRedesignExperiment
@@ -60,6 +66,7 @@ function QRCard({
     const isError = () => {
         return state === QRCODE_STATE.ERROR;
     };
+    const variant = getVariant(qrcRedesignExperiment);
 
     const handleClick = (selectedFundingSource : $Values<typeof FUNDING>) => {
         window.xprops.hide();
@@ -101,40 +108,12 @@ function QRCard({
         />
     );
 
-    const DetailedInstructions = ({ children }) => {
-        return (<section className="detailed-instructions">
-                <div className="instructions-container">
-                    <div className="instruction">
-                        <MobileIcon />
-                        <div>
-                            <p className="instruction__title">Scan</p>
-                            <p className="instruction__description">
-                            Scan QR code with your Venmo App or camera
-                            </p>
-                        </div>
-                    </div>
-                    <div className="instruction">
-                        <CompleteIcon />
-                        <div>
-                            <p className="instruction__title">Complete</p>
-                            <p className="instruction__description">
-                            Confirm payment in the Venmo app
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="qr-code-container">
-                {children}
-                </div>
-            </section>);
-    }
-
     const frontView = (
         <div id="front-view" className="card">
             <p id="fee-disclaimer">
                 No fees no matter how you pay
             </p>
-            { qrcRedesignExperiment == VQRC_EXPERIMENT.CTRL ? 
+            { qrcRedesignExperiment === VQRC_EXPERIMENT.CTRL ?
                 <div id="instructions">
                     <InstructionIcon stylingClass="instruction-icon" />
                     <span>
@@ -144,7 +123,7 @@ function QRCard({
             <DetailedInstructions>
                 <QRCodeElement svgString={ svgString } />
                 <Logo />
-                { qrcRedesignExperiment == VQRC_EXPERIMENT.B ? <div id="powered-logo"><span>Powered by </span><PaypalIcon /></div> : null}
+                { qrcRedesignExperiment === VQRC_EXPERIMENT.B ? <div id="powered-logo"><span>Powered by </span><PaypalIcon /></div> : null}
             </DetailedInstructions>
         </div>
     );
@@ -158,14 +137,14 @@ function QRCard({
 
     const content = displaySurvey ? surveyElement : frontView;
     const escapePathFooter = displayEscapePath && (
-        <p className={`escape-path ${ qrcRedesignExperiment } `}>Don&apos;t have the app? Pay with <span className="escape-path__link" onClick={ () => handleClick(FUNDING.PAYPAL) }>PayPal</span> or <span className="escape-path__link" onClick={ () => handleClick(FUNDING.CARD) }>Credit/Debit card</span></p>
+        <p className={ `escape-path ${ variant } ` }>Don&apos;t have the app? Pay with <span className="escape-path__link" onClick={ () => handleClick(FUNDING.PAYPAL) }>PayPal</span> or <span className="escape-path__link" onClick={ () => handleClick(FUNDING.CARD) }>Credit/Debit card</span></p>
     );
 
     return (
         <Fragment>
             <style nonce={ window.xprops.cspNonce }> { cardStyle } </style>
-            <a href="#" className={qrcRedesignExperiment} id="close" aria-label="close" role="button" onClick={ onCloseClick } />
-            <div id="view-boxes" className={` ${ state } ${ qrcRedesignExperiment } `}>
+            <a href="#" className={ variant } id="close" aria-label="close" role="button" onClick={ onCloseClick } />
+            <div id="view-boxes" className={ ` ${ state } ${ variant } ` }>
                 { isError() ? errorMessage : content }
                 <div className="card" id="back-view" >
                     <span className="mark">

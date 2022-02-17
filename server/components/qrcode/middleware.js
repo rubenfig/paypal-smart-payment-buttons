@@ -1,8 +1,9 @@
 /* @flow */
 
 import { clientErrorResponse, htmlResponse, allowFrame, defaultLogger, safeJSON, sdkMiddleware,
-    isLocalOrTest, type ExpressMiddleware, type GetExperimentsParams } from '../../lib';
-import type { LoggerType, CacheType, InstanceLocationInformation, ExpressRequest,  } from '../../types';
+    isLocalOrTest, type ExpressMiddleware } from '../../lib';
+import type { LoggerType, CacheType, InstanceLocationInformation, ExpressRequest  } from '../../types';
+import { VQRC_EXPERIMENT } from '../../../src/constants';
 
 import { EVENT, VENMO_BLUE } from './constants';
 import { getParams } from './params';
@@ -18,10 +19,14 @@ type QRcodeMiddlewareOptions = {|
     cache? : CacheType,
     cdn? : boolean,
     getInstanceLocationInformation : () => InstanceLocationInformation,
-    getVenmoQRCRedesignExperiment :  (req : ExpressRequest, params : QRCExperimentParams) => Promise<string>
+    getVenmoQRCRedesignExperiment? : (req : ExpressRequest, params : QRCExperimentParams) => Promise<string>
 |};
 
-export function getQRCodeMiddleware({ logger = defaultLogger, cache, cdn = !isLocalOrTest(), getInstanceLocationInformation, getVenmoQRCRedesignExperiment } : QRcodeMiddlewareOptions = {}) : ExpressMiddleware {
+function getDefaultVQRCExperiment() : Promise<string> {
+    return Promise.resolve(VQRC_EXPERIMENT.CTRL);
+}
+
+export function getQRCodeMiddleware({ logger = defaultLogger, cache, cdn = !isLocalOrTest(), getInstanceLocationInformation, getVenmoQRCRedesignExperiment = getDefaultVQRCExperiment } : QRcodeMiddlewareOptions = {}) : ExpressMiddleware {
     const useLocal = !cdn;
     const locationInformation = getInstanceLocationInformation();
 

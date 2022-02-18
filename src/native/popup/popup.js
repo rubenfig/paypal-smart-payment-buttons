@@ -1,7 +1,7 @@
 /* @flow */
 
 import { parseQuery, cleanup, stringifyErrorMessage, base64encode, isSFVC, isSFVCorSafari } from 'belter/src';
-import { onCloseWindow } from 'cross-domain-utils/src';
+import { onCloseWindow } from '@krakenjs/cross-domain-utils/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { ENV, FUNDING, FPTI_KEY, COUNTRY } from '@paypal/sdk-constants/src';
 

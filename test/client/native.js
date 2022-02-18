@@ -4,7 +4,7 @@
 import { wrapPromise, parseQuery, uniqueID, noop } from 'belter/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { FUNDING, PLATFORM } from '@paypal/sdk-constants/src';
-import { isWindowClosed } from 'cross-domain-utils/src';
+import { isWindowClosed } from '@krakenjs/cross-domain-utils/src';
 
 import { promiseNoop } from '../../src/lib';
 

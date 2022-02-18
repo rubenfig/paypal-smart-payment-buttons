@@ -2,7 +2,7 @@
 
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { INTENT } from '@paypal/sdk-constants';
-import { getAllFramesInWindow, isSameDomain } from 'cross-domain-utils/src';
+import { getAllFramesInWindow, isSameDomain } from '@krakenjs/cross-domain-utils/src';
 import { uniqueID } from 'belter/src';
 
 import { FRAME_NAME } from '../constants';

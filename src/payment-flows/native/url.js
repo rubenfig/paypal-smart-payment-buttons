@@ -3,7 +3,7 @@
 
 import { extendUrl, isDevice } from 'belter/src';
 import { COUNTRY, ENV, FUNDING } from '@paypal/sdk-constants/src';
-import { getDomain } from 'cross-domain-utils/src';
+import { getDomain } from '@krakenjs/cross-domain-utils/src';
 
 import { WEB_CHECKOUT_URI } from '../../config';
 import { createExperiment, isIOSSafari } from '../../lib';

@@ -3,7 +3,7 @@
 import { stringifyError, noop, once, popup, type CleanupType } from 'belter/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { FPTI_KEY, FUNDING } from '@paypal/sdk-constants/src';
-import { type CrossDomainWindowType } from 'cross-domain-utils/src';
+import { type CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import type { ProxyWindow } from 'post-robot/src';
 
 import { getNativeEligibility, onLsatUpgradeCalled } from '../../api';

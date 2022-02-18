@@ -5,7 +5,7 @@ import { uniqueID, memoize, stringifyError,
     stringifyErrorMessage, cleanup, noop } from 'belter/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { FPTI_KEY } from '@paypal/sdk-constants/src';
-import { type CrossDomainWindowType } from 'cross-domain-utils/src';
+import { type CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import type { ProxyWindow } from 'post-robot/src';
 
 import { updateButtonClientConfig, onLsatUpgradeCalled } from '../../api';

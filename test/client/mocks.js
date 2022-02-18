@@ -7,7 +7,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import { values, destroyElement, noop, uniqueID, parseQuery, once, getBody } from 'belter/src';
 import { FUNDING } from '@paypal/sdk-constants';
 import { INTENT, CURRENCY, CARD, PLATFORM, COUNTRY, type FundingEligibilityType } from '@paypal/sdk-constants/src';
-import { isWindowClosed, isSameDomain, getDomain, type CrossDomainWindowType } from 'cross-domain-utils/src';
+import { isWindowClosed, isSameDomain, getDomain, type CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import { ProxyWindow } from 'post-robot/src/serialize/window';
 
 import type { ZoidComponentInstance, MenuFlowProps } from '../../src/types';

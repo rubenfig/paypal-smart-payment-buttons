@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { CrossDomainWindowType } from 'cross-domain-utils/src';
+import type { CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import type { ZalgoPromise } from 'zalgo-promise/src';
 import { COUNTRY, LANG, CARD, WALLET_INSTRUMENT, FUNDING } from '@paypal/sdk-constants/src';
 import type { ProxyWindow as _ProxyWindow } from 'post-robot/src';

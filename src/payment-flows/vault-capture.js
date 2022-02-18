@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { CrossDomainWindowType } from 'cross-domain-utils/src';
+import type { CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { FUNDING, FPTI_KEY } from '@paypal/sdk-constants/src';
 import { destroyElement, noop } from 'belter/src';

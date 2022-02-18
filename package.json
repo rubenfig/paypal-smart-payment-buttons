@@ -14,7 +14,7 @@
     "coverageDirectory": "./server-coverage/",
     "restoreMocks": true,
     "transformIgnorePatterns": [
-      "node_modules/(?!@paypal|@krakenjs|beaver-logger|belter|zalgo-promise|cross-domain-safe-weakmap|get-browser-fingerprint)"
+      "node_modules/(?!(@paypal|@krakenjs|beaver-logger|belter|zalgo-promise|cross-domain-utils|cross-domain-safe-weakmap|get-browser-fingerprint))"
     ],
     "globals": {
       "__DEBUG__": true

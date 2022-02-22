@@ -7168,7 +7168,7 @@ window.spb = function(modules) {
             logger_getLogger().info("rest_api_create_order_token");
             var headers = ((_headers15 = {}).authorization = "Bearer " + accessToken, _headers15["paypal-partner-attribution-id"] = partnerAttributionID, 
             _headers15["paypal-client-metadata-id"] = clientMetadataID, _headers15["x-app-name"] = "smart-payment-buttons", 
-            _headers15["x-app-version"] = "5.0.81", _headers15);
+            _headers15["x-app-version"] = "5.0.82", _headers15);
             var paymentSource = {
                 token: {
                     id: paymentMethodID,
@@ -12621,8 +12621,7 @@ window.spb = function(modules) {
                 })).info("button_click").info("button_click_pay_flow_" + name).info("button_click_fundingsource_" + fundingSource).info("button_click_instrument_" + (instrumentType || "default")).addTrackingBuilder((function() {
                     var _ref5;
                     return (_ref5 = {}).selected_payment_method = fundingSource, _ref5.context_type = "button_session_id", 
-                    _ref5.context_id = buttonSessionID, _ref5.button_session_id = buttonSessionID, _ref5.user_id = buttonSessionID, 
-                    _ref5.token = null, _ref5;
+                    _ref5.context_id = buttonSessionID, _ref5.token = null, _ref5;
                 })).track((_getLogger$addPayload = {}, _getLogger$addPayload.transition_name = "process_button_click", 
                 _getLogger$addPayload.chosen_fi_type = instrumentType, _getLogger$addPayload.payment_flow = name, 
                 _getLogger$addPayload.is_vault = instrumentType ? "1" : "0", _getLogger$addPayload.info_msg = enableNativeCheckout ? "tester" : "", 
@@ -13421,7 +13420,7 @@ window.spb = function(modules) {
                 logger.addTrackingBuilder((function() {
                     var _ref3;
                     return (_ref3 = {}).state_name = "smart_button", _ref3.context_type = "button_session_id", 
-                    _ref3.context_id = buttonSessionID, _ref3.button_session_id = buttonSessionID, _ref3.button_version = "5.0.81", 
+                    _ref3.context_id = buttonSessionID, _ref3.button_session_id = buttonSessionID, _ref3.button_version = "5.0.82", 
                     _ref3.button_correlation_id = buttonCorrelationID, _ref3.stickiness_id = isAndroidChrome() ? stickinessID : null, 
                     _ref3.bn_code = partnerAttributionID, _ref3.user_action = commit ? "commit" : "continue", 
                     _ref3.seller_id = merchantID[0], _ref3.merchant_domain = merchantDomain, _ref3.t = Date.now().toString(), 

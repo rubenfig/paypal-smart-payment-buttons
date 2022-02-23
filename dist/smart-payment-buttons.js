@@ -12486,8 +12486,7 @@ window.spb = function(modules) {
                 })).info("button_click").info("button_click_pay_flow_" + name).info("button_click_fundingsource_" + fundingSource).info("button_click_instrument_" + (instrumentType || "default")).addTrackingBuilder((function() {
                     var _ref5;
                     return (_ref5 = {}).selected_payment_method = fundingSource, _ref5.context_type = "button_session_id", 
-                    _ref5.context_id = buttonSessionID, _ref5.button_session_id = buttonSessionID, _ref5.user_id = buttonSessionID, 
-                    _ref5.token = null, _ref5;
+                    _ref5.context_id = buttonSessionID, _ref5.token = null, _ref5;
                 })).track((_getLogger$addPayload = {}, _getLogger$addPayload.transition_name = "process_button_click", 
                 _getLogger$addPayload.chosen_fi_type = instrumentType, _getLogger$addPayload.payment_flow = name, 
                 _getLogger$addPayload.is_vault = instrumentType ? "1" : "0", _getLogger$addPayload.info_msg = enableNativeCheckout ? "tester" : "", 

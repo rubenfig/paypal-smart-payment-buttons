@@ -3036,7 +3036,7 @@
         }
         function DetailedInstructions(_ref4) {
             var children = _ref4.children;
-            return v("section", {
+            return _ref4.showInstructions ? v("section", {
                 className: "detailed-instructions"
             }, v("div", {
                 className: "instructions-container"
@@ -3054,7 +3054,7 @@
                 className: "instruction__description"
             }, "Confirm payment in the Venmo app")))), v("div", {
                 className: "qr-code-container"
-            }, children));
+            }, children)) : children;
         }
         function PaypalIcon() {
             return v("span", null, (_ref2 = {
@@ -3586,7 +3586,9 @@
                 id: "instructions"
             }, v(InstructionIcon, {
                 stylingClass: "instruction-icon"
-            }), v("span", null, "To pay, scan the QR code with your Venmo app")) : null, v(DetailedInstructions, null, v(QRCodeElement, {
+            }), v("span", null, "To pay, scan the QR code with your Venmo app")) : null, v(DetailedInstructions, {
+                showInstructions: "Ctrl_Venmo_QRC_Redesign" !== qrcRedesignExperiment
+            }, v(QRCodeElement, {
                 svgString: svgString
             }), v(Logo, null), "Trmt_Venmo_QRC_RedesignB" === qrcRedesignExperiment ? v("div", {
                 id: "powered-logo"

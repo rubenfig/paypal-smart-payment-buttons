@@ -120,7 +120,7 @@ function QRCard({
                         To pay, scan the QR code with your Venmo app
                     </span>
                 </div> : null}
-            <DetailedInstructions>
+            <DetailedInstructions showInstructions={ qrcRedesignExperiment !== VQRC_EXPERIMENT.CTRL }>
                 <QRCodeElement svgString={ svgString } />
                 <Logo />
                 { qrcRedesignExperiment === VQRC_EXPERIMENT.B ? <div id="powered-logo"><span>Powered by </span><PaypalIcon /></div> : null}

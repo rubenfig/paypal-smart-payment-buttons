@@ -48,7 +48,10 @@ export function InstructionIcon({ stylingClass = 'instruction-icon' } : {|stylin
     );
 }
 
-export function DetailedInstructions({ children } : {| children : mixed |}) : mixed {
+export function DetailedInstructions({ children, showInstructions } : {| children : mixed, showInstructions : boolean |}) : mixed {
+    if (!showInstructions) {
+        return children;
+    }
     return (
         <section className="detailed-instructions">
             <div className="instructions-container">

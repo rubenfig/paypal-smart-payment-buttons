@@ -1,6 +1,6 @@
 /* @flow */
 
-import { type ZalgoPromise } from 'zalgo-promise/src';
+import { type ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { createAccessToken, createSubscription as createSubcriptionID, reviseSubscription } from '../api';
 import { getLogger } from '../lib';

@@ -3,7 +3,7 @@
 
 import { COUNTRY, CURRENCY, INTENT, COMMIT, VAULT, FUNDING, FPTI_KEY } from '@paypal/sdk-constants';
 import type { FundingEligibilityType } from '@paypal/sdk-constants/src/types';
-import type { ComponentFunctionType } from 'jsx-pragmatic/src';
+import type { ComponentFunctionType } from '@krakenjs/jsx-pragmatic/src';
 import { node } from 'jsx-pragmatic';
 import { LOGO_COLOR, PPLogo, PayPalLogo } from '@paypal/sdk-logos';
 

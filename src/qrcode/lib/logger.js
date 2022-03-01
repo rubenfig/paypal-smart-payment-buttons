@@ -1,7 +1,7 @@
 /* @flow */
 
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { isIEIntranet, getPageRenderTime } from 'belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { isIEIntranet, getPageRenderTime } from '@krakenjs/belter/src';
 import { FPTI_KEY, FUNDING } from '@paypal/sdk-constants/src';
 import { type LoggerType, getHTTPTransport } from 'beaver-logger/src';
 

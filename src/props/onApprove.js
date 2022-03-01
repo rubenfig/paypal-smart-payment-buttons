@@ -1,8 +1,8 @@
 /* @flow */
 /* eslint max-nested-callbacks: off */
 
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { memoize, redirect as redir, noop } from 'belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { memoize, redirect as redir, noop } from '@krakenjs/belter/src';
 import { INTENT, SDK_QUERY_KEYS, FPTI_KEY } from '@paypal/sdk-constants/src';
 
 import { type OrderResponse, type PaymentResponse, getOrder, captureOrder, authorizeOrder, patchOrder,

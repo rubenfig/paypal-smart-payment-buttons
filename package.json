@@ -48,7 +48,7 @@
     "release:pre": "npm run build-commit && DIST_TAG=alpha grabthar-release prerelease",
     "deploy": "npm run cdnify",
     "activate:cli": "CDN='https://www.paypalobjects.com' grabthar-activate",
-    "activate": "CDNIFY=false grabthar-activate",
+    "activate": "grabthar-activate --CDNIFY=false",
     "postactivate": "npm run cdnify -- --commitonly",
     "clean": "rimraf dist coverage",
     "reinstall": "rimraf flow-typed && rimraf node_modules && npm install && flow-typed install",

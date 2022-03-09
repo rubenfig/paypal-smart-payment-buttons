@@ -323,9 +323,7 @@ function initCheckout({ props, components, serviceData, payment, config, restart
         return ZalgoPromise.try(() => {
             if (inlinexo) {
                 context = CONTEXT.IFRAME;
-            }
-
-            if (!merchantRequestedPopupsDisabled && !win && supportsPopups()) {
+            } else if (!merchantRequestedPopupsDisabled && !win && supportsPopups()) {
                 try {
                     const { width, height } = getDimensions(fundingSource);
                     win = openPopup({ width, height });

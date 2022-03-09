@@ -128,7 +128,7 @@ function initCheckout({ props, components, serviceData, payment, config, restart
         createBillingAgreement, createSubscription, onClick, amount,
         clientID, connect, clientMetadataID: cmid, onAuth, userIDToken, env,
         currency, enableFunding, stickinessID,
-        standaloneFundingSource, branded, paymentMethodToken, allowBillingPayments, merchantRequestedPopupsDisabled } = props;
+        standaloneFundingSource, branded, paymentMethodToken, allowBillingPayments, merchantRequestedPopupsDisabled, inlinexo } = props;
     let { button, win, fundingSource, card, isClick, buyerAccessToken = serviceData.buyerAccessToken,
         venmoPayloadID, buyerIntent } = payment;
     const { buyerCountry, sdkMeta, merchantID } = serviceData;
@@ -320,6 +320,10 @@ function initCheckout({ props, components, serviceData, payment, config, restart
 
     const click = () => {
         return ZalgoPromise.try(() => {
+            if (inlinexo) {
+                context = CONTEXT.IFRAME;
+            }
+            
             if (!merchantRequestedPopupsDisabled && !win && supportsPopups()) {
                 try {
                     const { width, height } = getDimensions(fundingSource);

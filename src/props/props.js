@@ -127,7 +127,7 @@ export type Props = {|
     enableThreeDomainSecure : boolean,
     enableNativeCheckout : boolean,
     enableVaultInstallments : boolean,
-    inlinexo : boolean,
+    inlinexo : boolean | void,
     merchantDomain : string,
     getPageUrl : GetPageURL,
     getParent : () => CrossDomainWindowType,

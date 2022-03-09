@@ -149,6 +149,7 @@ function initCheckout({ props, components, serviceData, payment, config, restart
             stickinessID,
             clientAccessToken,
             venmoPayloadID,
+            inlinexo,
 
             createAuthCode: () => {
                 return ZalgoPromise.try(() => {
@@ -323,7 +324,7 @@ function initCheckout({ props, components, serviceData, payment, config, restart
             if (inlinexo) {
                 context = CONTEXT.IFRAME;
             }
-            
+
             if (!merchantRequestedPopupsDisabled && !win && supportsPopups()) {
                 try {
                     const { width, height } = getDimensions(fundingSource);

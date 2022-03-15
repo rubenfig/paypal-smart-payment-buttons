@@ -2464,10 +2464,10 @@
             }));
         }));
         var _FRAUDNET_URL;
-        var FRAUDNET_URL = ((_FRAUDNET_URL = {}).local = "https://www.stage2d0107.stage.paypal.com/FDRegression/fb.js", 
-        _FRAUDNET_URL.stage = "https://www.stage2d0107.stage.paypal.com/FDRegression/fb.js", 
-        _FRAUDNET_URL.sandbox = "https://c.paypal.com/da/r/fb.js", _FRAUDNET_URL.production = "https://c.paypal.com/da/r/fb.js", 
-        _FRAUDNET_URL.test = "https://c.paypal.com/da/r/fb.js", _FRAUDNET_URL);
+        var FRAUDNET_URL = ((_FRAUDNET_URL = {}).local = "https://www.msmaster.qa.paypal.com/en_US/m/fb-raw.js", 
+        _FRAUDNET_URL.stage = "https://www.msmaster.qa.paypal.com/en_US/m/fb-raw.js", _FRAUDNET_URL.sandbox = "https://c.paypal.com/da/r/fb.js", 
+        _FRAUDNET_URL.production = "https://c.paypal.com/da/r/fb.js", _FRAUDNET_URL.test = "https://c.paypal.com/da/r/fb.js", 
+        _FRAUDNET_URL);
         memoize((function(_ref) {
             var env = _ref.env, clientMetadataID = _ref.clientMetadataID, cspNonce = _ref.cspNonce, _ref$timeout = _ref.timeout, timeout = void 0 === _ref$timeout ? 1e3 : _ref$timeout;
             return new promise_ZalgoPromise((function(resolve) {
@@ -2905,6 +2905,17 @@
             primary: "#373535",
             secondary: "#1866AB"
         };
+        var multibanco_logo_LOGO_COLORS;
+        (multibanco_logo_LOGO_COLORS = {}).default = {
+            primary: "#373535",
+            secondary: "#1866AB"
+        }, multibanco_logo_LOGO_COLORS.white = {
+            primary: "#ffffff",
+            secondary: "#ffffff"
+        }, multibanco_logo_LOGO_COLORS.black = {
+            primary: "#373535",
+            secondary: "#1866AB"
+        };
         function ErrorMessage(_ref) {
             var resetFunc = _ref.resetFunc;
             return v("div", {
@@ -3154,7 +3165,7 @@
             logger.addTrackingBuilder((function() {
                 var _ref2;
                 return (_ref2 = {}).state_name = "smart_button", _ref2.context_type = "EC-Token", 
-                _ref2.context_id = orderID, _ref2.button_session_id = buttonSessionID, _ref2.button_version = "5.0.84", 
+                _ref2.context_id = orderID, _ref2.button_session_id = buttonSessionID, _ref2.button_version = "5.0.85", 
                 _ref2.user_id = buttonSessionID, _ref2;
             }));
             (function() {

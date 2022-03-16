@@ -40,7 +40,7 @@ export type ButtonProps = {|
     buttonSessionID : string
 |};
 
-export function getButtonProps({ facilitatorAccessToken, brandedDefault } : {| facilitatorAccessToken : string, brandedDefault : boolean | null |}) : ButtonProps {
+export function getButtonProps({ facilitatorAccessToken, brandedDefault, paymentSource }: {| facilitatorAccessToken : string, brandedDefault: boolean | null, paymentSource : $Values<typeof FUNDING> |}) : ButtonProps {
     const xprops : ButtonXProps = window.xprops;
 
     let {
@@ -97,7 +97,7 @@ export function getButtonProps({ facilitatorAccessToken, brandedDefault } : {| f
     }
 
     return {
-        ...getProps({ facilitatorAccessToken, branded }),
+        ...getProps({ facilitatorAccessToken, branded, paymentSource }),
         style,
         buttonSessionID,
         branded

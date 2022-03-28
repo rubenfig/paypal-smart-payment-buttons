@@ -10,6 +10,7 @@ import { resolveFundingEligibility, resolveMerchantID, resolveWallet, resolvePer
 import { EXPERIMENT_TIMEOUT, TIMEOUT_ERROR_MESSAGE, FPTI_STATE } from '../../config';
 import type { LoggerType, CacheType, ExpressRequest, FirebaseConfig, InstanceLocationInformation, SDKLocationInformation } from '../../types';
 import type { ContentType } from '../../../src/types';
+import { logServerSideCPL } from '../../lib/cpl';
 
 import { getSmartPaymentButtonsClientScript, getPayPalSmartPaymentButtonsRenderScript } from './script';
 import { getButtonParams, getButtonPreflightParams } from './params';
@@ -48,6 +49,17 @@ export function getButtonMiddleware({
     return sdkMiddleware({ logger, cache, locationInformation }, {
         app: async ({ req, res, params, meta, logBuffer, sdkMeta }) => {
             logger.info(req, 'smart_buttons_render');
+            const cplPhases = {
+                query: {},
+                chunk: {},
+                comp:  {}
+            };
+            logServerSideCPL({
+                cplPhases,
+                phase:    'second-render-middleware',
+                category: 'comp',
+                isStart:  true
+            });
 
             for (const name of Object.keys(req.cookies || {})) {
                 logger.info(req, `smart_buttons_cookie_${ name || 'unknown' }`);
@@ -164,9 +176,54 @@ export function getButtonMiddleware({
                 firebaseConfig, facilitatorAccessToken, eligibility, content, cookies, personalization,
                 brandedDefault: experiments.isFundingSourceBranded
             };
+
+            logServerSideCPL({
+                cplPhases,
+                phase:    'second-render-middleware',
+                category: 'comp',
+                isStart:  false
+            });
+            logServerSideCPL({
+                cplPhases,
+                phase:    'second-render-response',
+                category: 'comp',
+                isStart:  true
+            });
+            const logMetricsScript = `
+                window.cplPhases = ${ JSON.stringify(cplPhases) };
+                window.logClientSideCPL = function (phase, category, isStart) {
+                    if (!window.cplPhases) {
+                        window.cplPhases = {
+                            query: {},
+                            chunk: {},
+                            comp: {}
+                        };
+                    }
+                    var epochNow = Date.now();
+                    if (category && window.cplPhases[category] && phase) {
+                        if (isStart && !window.cplPhases[category][phase]) {
+                            window.cplPhases[category][phase] = {
+                                start: epochNow
+                            };
+                        } else if (window.cplPhases[category][phase]) {
+                            if (
+                                window.cplPhases[category][phase].start &&
+                                !window.cplPhases[category][phase].tt
+                            ) {
+                                window.cplPhases[category][phase].tt =
+                                    epochNow - window.cplPhases[category][phase].start;
+                            }
+                        }
+                    }
+                };
+                logClientSideCPL('second-render-response', 'comp');
+                logClientSideCPL('second-render-body', 'comp', true);
+            `;
             const pageHTML = `
                 <!DOCTYPE html>
-                <head></head>
+                <head>
+                    <script type="text/javascript" nonce="${ cspNonce }">${ logMetricsScript }</script>
+                </head>
                 <body data-nonce="${ cspNonce }" data-client-version="${ client.version }" data-render-version="${ render.version }">
                     <style nonce="${ cspNonce }">${ buttonStyle }</style>
 

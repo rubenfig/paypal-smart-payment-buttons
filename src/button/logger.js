@@ -8,7 +8,7 @@ import type { LocaleType } from '../types';
 import { getLogger, setupLogger, isStorageStateFresh, isIOSSafari, isAndroidChrome } from '../lib';
 import {
     DATA_ATTRIBUTES, FPTI_TRANSITION, FPTI_BUTTON_TYPE, FPTI_BUTTON_KEY,
-    FPTI_STATE, FPTI_CONTEXT_TYPE, AMPLITUDE_KEY, FPTI_CUSTOM_KEY, FPTI_CPL_KEY
+    FPTI_STATE, FPTI_CONTEXT_TYPE, AMPLITUDE_KEY, FPTI_CUSTOM_KEY
 } from '../constants';
 import type { GetQueriedEligibleFunding, OnShippingChange } from '../props';
 
@@ -127,15 +127,19 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
 
         // This injected in the server middleware
         if (window.logClientSideCPL) {
-            window.logClientSideCPL('second-render-body', 'comp');
-            logger.info('CPL_LATENCY_METRICS_SECOND_RENDER').track({
-                [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
-                [FPTI_KEY.TRANSITION]:            'process_server_metrics / process_client_metrics',
-                [FPTI_CPL_KEY.PAGE_NAME]:         `main:xo:paypal-components:smart-payment-buttons`,
-                [FPTI_CPL_KEY.CPL_COMP_METRICS]:  JSON.stringify(window.cplPhases?.comp || {}),
-                [FPTI_CPL_KEY.CPL_QUERY_METRICS]: JSON.stringify(window.cplPhases?.query || {}),
-                [FPTI_CPL_KEY.CPL_CHUNK_METRICS]: JSON.stringify(window.cplPhases?.chunk || {})
-            });
+            try {
+                window.logClientSideCPL(window.cplPhases, 'second-render-body', 'comp');
+                logger.info('CPL_LATENCY_METRICS_SECOND_RENDER').track({
+                    [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
+                    [FPTI_KEY.TRANSITION]:            'process_server_metrics / process_client_metrics',
+                    [FPTI_KEY.PAGE]:                  `main:xo:paypal-components:smart-payment-buttons`,
+                    [FPTI_KEY.CPL_COMP_METRICS]:      JSON.stringify(window.cplPhases?.comp || {}),
+                    [FPTI_KEY.CPL_QUERY_METRICS]:     JSON.stringify(window.cplPhases?.query || {}),
+                    [FPTI_KEY.CPL_CHUNK_METRICS]:     JSON.stringify(window.cplPhases?.chunk || {})
+                });
+            } catch (e) {
+                logger.info(`button_render_CPL_instrumentation_log_error`);
+            }
         } else {
             logger.info(`button_render_CPL_instrumentation_not_injected`);
         }

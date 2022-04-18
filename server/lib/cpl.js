@@ -1,19 +1,20 @@
 /* @flow */
-type LogServerSideCPLParams = {|
-    cplPhases : Object,
-    phase : string,
-    category : string,
-    isStart : ?boolean
-|};
 
 /**
  * Log performance metrics to send later
- * @param {Object} req
+ * @param {Object} cplPhases
  * @param {String} phase
  * @param {String} category
  * @param {Boolean} isStart
  */
-export const logServerSideCPL = ({ cplPhases, phase, category, isStart } : LogServerSideCPLParams) => {
+export const logCPLMetrics = (cplPhases : Object, phase : string, category : string, isStart : ?boolean) => {
+    if (!cplPhases) {
+        cplPhases = {
+            query: {},
+            chunk: {},
+            comp:  {}
+        };
+    }
     const epochNow = Date.now();
     if (category && cplPhases[category] && phase) {
         if (isStart && !cplPhases[category][phase]) {

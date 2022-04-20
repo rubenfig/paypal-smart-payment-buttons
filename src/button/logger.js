@@ -131,7 +131,7 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
                 window.logClientSideCPL(window.cplPhases, 'second-render-body', 'comp');
                 logger.info('CPL_LATENCY_METRICS_SECOND_RENDER').track({
                     [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
-                    [FPTI_KEY.TRANSITION]:            'process_server_metrics / process_client_metrics',
+                    [FPTI_KEY.TRANSITION]:            'process_server_metrics',
                     [FPTI_KEY.PAGE]:                  `main:xo:paypal-components:smart-payment-buttons`,
                     [FPTI_KEY.CPL_COMP_METRICS]:      JSON.stringify(window.cplPhases?.comp || {}),
                     [FPTI_KEY.CPL_QUERY_METRICS]:     JSON.stringify(window.cplPhases?.query || {}),

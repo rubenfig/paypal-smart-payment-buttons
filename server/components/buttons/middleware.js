@@ -10,7 +10,6 @@ import { resolveFundingEligibility, resolveMerchantID, resolveWallet, resolvePer
 import { EXPERIMENT_TIMEOUT, TIMEOUT_ERROR_MESSAGE, FPTI_STATE } from '../../config';
 import type { LoggerType, CacheType, ExpressRequest, FirebaseConfig, InstanceLocationInformation, SDKLocationInformation } from '../../types';
 import type { ContentType } from '../../../src/types';
-import { logCPLMetrics } from '../../lib/cpl';
 
 import { getSmartPaymentButtonsClientScript, getPayPalSmartPaymentButtonsRenderScript } from './script';
 import { getButtonParams, getButtonPreflightParams } from './params';
@@ -49,12 +48,7 @@ export function getButtonMiddleware({
     return sdkMiddleware({ logger, cache, locationInformation }, {
         app: async ({ req, res, params, meta, logBuffer, sdkMeta }) => {
             logger.info(req, 'smart_buttons_render');
-            const cplPhases = {
-                query: {},
-                chunk: {},
-                comp:  {}
-            };
-            logCPLMetrics(cplPhases, 'second-render-middleware', 'comp', true);
+            const middlewareStartTime = Date.now();
 
             for (const name of Object.keys(req.cookies || {})) {
                 logger.info(req, `smart_buttons_cookie_${ name || 'unknown' }`);
@@ -172,20 +166,35 @@ export function getButtonMiddleware({
                 brandedDefault: experiments.isFundingSourceBranded
             };
 
-            logCPLMetrics(cplPhases, 'second-render-middleware', 'comp');
-            logCPLMetrics(cplPhases, 'second-render-response', 'comp', true);
+            const cplCompPayload = {
+                'second-render-middleware': {
+                    start: middlewareStartTime,
+                    tt:    Date.now() - middlewareStartTime
+                }
+            };
+
+            logger.info(req, 'CPL_LATENCY_METRICS_SECOND_RENDER_MIDDLEWARE');
+            logger.track(req, {
+                [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
+                [FPTI_KEY.TRANSITION]:            'process_server_metrics',
+                [FPTI_KEY.PAGE]:                  'main:xo:paypal-components:smart-payment-buttons',
+                [FPTI_KEY.CONTEXT_ID]:            buttonSessionID,
+                [FPTI_KEY.CPL_COMP_METRICS]:      cplCompPayload,
+                [FPTI_KEY.CPL_QUERY_METRICS]:     {},
+                [FPTI_KEY.CPL_CHUNK_METRICS]:     {}
+            }, {});
+            const responseStartTime = Date.now();
 
             const pageHTML = `
                 <!DOCTYPE html>
                 <head>
                     <script type="text/javascript" nonce="${ cspNonce }">
-                      window.cplPhases = ${ safeJSON(cplPhases) };
-                      window.logClientSideCPL = ${ logCPLMetrics.toString() };
-                      window.logClientSideCPL(window.cplPhases, 'second-render-response', 'comp');
-                      window.logClientSideCPL(window.cplPhases, 'second-render-body', 'comp', true);
+                      if (window.performance && performance.mark) {
+                          performance.mark('response-received');
+                      }
                     </script>
                 </head>
-                <body data-nonce="${ cspNonce }" data-client-version="${ client.version }" data-render-version="${ render.version }">
+                <body data-nonce="${ cspNonce }" data-client-version="${ client.version }" data-render-version="${ render.version }" data-response-start-time="${ responseStartTime }">
                     <style nonce="${ cspNonce }">${ buttonStyle }</style>
 
                     <div id="buttons-container" class="buttons-container" role="main" aria-label="PayPal">${ buttonHTML }</div>

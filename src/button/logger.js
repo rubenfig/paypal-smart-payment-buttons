@@ -142,7 +142,8 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
                 const responseStartTime = getResponseStartTime();
                 const responseEndTime = performance.timing.navigationStart + performance.getEntriesByName('response-received').pop().startTime;
                 const cplPhases = prepareLatencyInstrumentationPayload(responseStartTime, responseEndTime);
-                logger.info('CPL_LATENCY_METRICS_SECOND_RENDER').track({
+                logger.info('CPL_LATENCY_METRICS_SECOND_RENDER');
+                logger.track({
                     [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
                     [FPTI_KEY.TRANSITION]:            'process_client_metrics',
                     [FPTI_KEY.PAGE]:                  `main:xo:paypal-components:smart-payment-buttons`,

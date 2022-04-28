@@ -188,9 +188,9 @@ export function getButtonMiddleware({
             const pageHTML = `
                 <!DOCTYPE html>
                 <head>
-                    <script type="text/javascript" nonce="${ cspNonce }">
+                    <script nonce="${ cspNonce }">
                       if (window.performance && performance.mark) {
-                          performance.mark('response-received');
+                          performance.mark('buttons-response-received');
                       }
                     </script>
                 </head>

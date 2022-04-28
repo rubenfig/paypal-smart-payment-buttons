@@ -64,6 +64,7 @@ describe('getButtonProps', () => {
         jest
             .spyOn(window, 'performance', 'get')
             .mockImplementation(() => ({
+                now:    jest.fn(() => 1000),
                 timing: {
                     navigationStart: 1000
                 },

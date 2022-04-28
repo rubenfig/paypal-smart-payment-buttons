@@ -11,7 +11,8 @@ import {
     isStorageStateFresh,
     isIOSSafari,
     isAndroidChrome,
-    prepareLatencyInstrumentationPayload
+    prepareLatencyInstrumentationPayload,
+    getNavigationTimeorigin
 } from '../lib';
 import {
     DATA_ATTRIBUTES, FPTI_TRANSITION, FPTI_BUTTON_TYPE, FPTI_BUTTON_KEY,
@@ -32,7 +33,7 @@ function getClientVersion() : string {
 }
 
 function getResponseStartTime() : number {
-    const startTime = document.body && document.body.getAttribute(`${ DATA_ATTRIBUTES.RESPONSE_START_TIME }`);
+    const startTime = document.body && document.body.getAttribute(DATA_ATTRIBUTES.RESPONSE_START_TIME);
     return Number(startTime);
 }
 
@@ -140,13 +141,13 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
         if (window.performance) {
             try {
                 const responseStartTime = getResponseStartTime();
-                const responseEndTime = performance.timing.navigationStart + performance.getEntriesByName('response-received').pop().startTime;
+                const responseEndTime = getNavigationTimeorigin() + performance.getEntriesByName('buttons-response-received').pop().startTime;
                 const cplPhases = prepareLatencyInstrumentationPayload(responseStartTime, responseEndTime);
                 logger.info('CPL_LATENCY_METRICS_SECOND_RENDER');
                 logger.track({
                     [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
                     [FPTI_KEY.TRANSITION]:            'process_client_metrics',
-                    [FPTI_KEY.PAGE]:                  `main:xo:paypal-components:smart-payment-buttons`,
+                    [FPTI_KEY.PAGE]:                  'main:xo:paypal-components:smart-payment-buttons',
                     [FPTI_KEY.CPL_COMP_METRICS]:      JSON.stringify(cplPhases?.comp || {}),
                     [FPTI_KEY.CPL_QUERY_METRICS]:     JSON.stringify(cplPhases?.query || {}),
                     [FPTI_KEY.CPL_CHUNK_METRICS]:     JSON.stringify(cplPhases?.chunk || {})

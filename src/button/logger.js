@@ -148,9 +148,7 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
                     [FPTI_KEY.STATE]:                 'CPL_LATENCY_METRICS',
                     [FPTI_KEY.TRANSITION]:            'process_client_metrics',
                     [FPTI_KEY.PAGE]:                  'main:xo:paypal-components:smart-payment-buttons',
-                    [FPTI_KEY.CPL_COMP_METRICS]:      JSON.stringify(cplPhases?.comp || {}),
-                    [FPTI_KEY.CPL_QUERY_METRICS]:     JSON.stringify(cplPhases?.query || {}),
-                    [FPTI_KEY.CPL_CHUNK_METRICS]:     JSON.stringify(cplPhases?.chunk || {})
+                    [FPTI_KEY.CPL_COMP_METRICS]:      JSON.stringify(cplPhases?.comp || {})
                 });
             } catch (e) {
                 logger.info(`button_render_CPL_instrumentation_log_error`);

@@ -22,8 +22,6 @@ export function prepareLatencyInstrumentationPayload (responseStartTime : number
                 start: responseEndTime,
                 tt:    epochNow - responseEndTime
             }
-        },
-        query: {},
-        chunk: {}
+        }
     };
 }

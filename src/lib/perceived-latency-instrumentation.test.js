@@ -18,9 +18,7 @@ describe('customer perceived latency instrumentation utils', () => {
                         start: responseEndTime,
                         tt:    1000
                     }
-                },
-                query: {},
-                chunk: {}
+                }
             };
             expect(prepareLatencyInstrumentationPayload(responseStartTime, responseEndTime)).toEqual(preparedPayload);
 

@@ -82,9 +82,7 @@ describe('getButtonProps', () => {
             state_name:        'CPL_LATENCY_METRICS',
             transition_name:   'process_client_metrics',
             page_name:         'main:xo:paypal-components:smart-payment-buttons',
-            cpl_comp_metrics:  '{"second-render-response":{"start":0,"tt":3000},"second-render-body":{"start":3000,"tt":1000}}',
-            cpl_query_metrics: '{}',
-            cpl_chunk_metrics: '{}'
+            cpl_comp_metrics:  '{"second-render-response":{"start":0,"tt":3000},"second-render-body":{"start":3000,"tt":1000}}'
         });
     });
 

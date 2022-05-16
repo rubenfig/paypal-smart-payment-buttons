@@ -152,7 +152,7 @@ export function onCloseProxyWindow(proxyWin : ProxyWindow, callback : Function, 
     };
 }
 
-export function getNavigationTimeorigin() : number {
+export function getNavigationTimeOrigin() : number {
     if (window.performance) {
         const hrSyncPoint = performance.now();
         const unixSyncPoint = new Date().getTime();

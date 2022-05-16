@@ -1,9 +1,9 @@
 /* @flow */
 
 type InstrumentationPayload = {|
-    comp? : Object,
-    chunk? : Object,
-    query? : Object
+    comp? : mixed,
+    chunk? : mixed,
+    query? : mixed
 |};
 /**
  * Prepare instrumentation Payload to be sent to logger

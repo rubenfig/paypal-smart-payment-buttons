@@ -12,7 +12,7 @@ import {
     isIOSSafari,
     isAndroidChrome,
     prepareLatencyInstrumentationPayload,
-    getNavigationTimeorigin
+    getNavigationTimeOrigin
 } from '../lib';
 import {
     DATA_ATTRIBUTES, FPTI_TRANSITION, FPTI_BUTTON_TYPE, FPTI_BUTTON_KEY,
@@ -141,7 +141,7 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
         if (window.performance) {
             try {
                 const responseStartTime = getResponseStartTime();
-                const responseEndTime = getNavigationTimeorigin() + performance.getEntriesByName('buttons-response-received').pop().startTime;
+                const responseEndTime = getNavigationTimeOrigin() + performance.getEntriesByName('buttons-response-received').pop().startTime;
                 const cplPhases = prepareLatencyInstrumentationPayload(responseStartTime, responseEndTime);
                 logger.info('CPL_LATENCY_METRICS_SECOND_RENDER');
                 logger.track({
